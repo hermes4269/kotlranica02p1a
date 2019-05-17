@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  
+	<title>Kotlarnica</title>
+	
+	<link rel="icon" href="favicon.ico">
+  <link rel="icon" href="favicon.ico">
+  <!--<script src="./js/vue.js"></script>-->
+  <!--<script src="./js/vue.runtime.min.js"></script>-->
+  <script src="./js/vue.min.js"></script>
+  
+	<script src="./js/axios.min.js"></script>	
+
+
+  <style>	
+
+
+
+.btn {
+    display: inline-block;
+    /*font-weight: 400;*/
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 8px 12px;
+    font-size: 16px;
+    line-height: 1.25;
+    border-radius: 4px;
+    transition: all .15s ease-in-out;
+    width:80px;
+    height: 40px;
+    margin-top:15px;
+    /*background-image: url("./img/on-off-80b.png");*/
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Svg Vector Icons : http://www.onlinewebfonts.com/icon --%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 1000 1000' enable-background='new 0 0 1000 1000' xml:space='preserve'%3E%3Cmetadata%3E Svg Vector Icons : http://www.onlinewebfonts.com/icon %3C/metadata%3E%3Cg%3E%3Cg transform='translate(0.000000,512.000000) scale(0.100000,-0.100000)'%3E%3Cpath style='fill:#ffffff' d='M4796.8,4997.5c-281.8-80.5-494.6-322.1-536.8-617.3c-26.8-182.1-24.9-4041.4,1.9-4204.3c40.3-249.2,228.1-488.9,454.4-577.1c86.3-36.4,147.6-44.1,291.4-46c168.7,0,193.6,5.8,310.6,63.3c161.1,78.6,320.2,245.4,383.4,400.7l44.1,111.2l5.7,2087.8c3.8,1380.4-1.9,2124.2-15.3,2195.2c-44.1,241.6-233.9,473.5-454.4,557.9C5140,5024.4,4934.9,5035.9,4796.8,4997.5z'/%3E%3Cpath style='fill:#ffffff' d='M6848.2,2463v-880l107.3-103.5c441-429.4,728.5-996.9,814.8-1608.5c32.6-228.2,11.5-768.8-38.4-979.7C7469.4-2234,6597.1-3064.1,5458.2-3269.3c-235.8-42.2-671-40.3-920.2,1.9c-1163.7,207.1-2066.7,1100.4-2283.3,2264.2c-51.8,278-47.9,753.4,7.7,1019.9c109.3,511.9,337.4,956.7,703.6,1370.8l163,186v872.3c0,481.2-7.7,874.2-15.3,874.2c-26.8,0-352.8-193.6-523.4-308.7C1581.8,2321.2,910.8,1216.9,761.2,3.3c-159.1-1303.7,289.5-2599.7,1227-3537.2c653.8-653.8,1459-1060.2,2396.5-1211.7c295.2-46,931.7-46,1236.6,0c452.5,70.9,841.7,193.6,1255.8,395C8157.6-3723.7,9028-2525.4,9237-1099.1c44.1,304.8,44.1,858.9,1.9,1161.8c-134.2,926-529.2,1733.1-1171.4,2392.6c-325.9,333.6-671,596.2-1050.6,797.5l-168.7,90.1V2463z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+}
+
+.circle {
+  display:inline-block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 20px;
+  color: #fff;
+  line-height: 50px;
+  text-align: center;
+  background: #000;
+  margin-top:15px;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.container-fluid {
+    max-width: 1000px;
+    margin:auto;
+       text-align: center;
+        border: 1px solid #0C182E;
+    border-radius: 25px;
+    margin-top: 20px;
+
+   
+}
+
+.polje {
+    width: 150px;
+    height:140px;
+    background-color: #0C182E;
+    color: #38B5ED;
+    padding: 15px;    
+    border-radius: 25px;
+    display:inline-block;
+    margin:10px 5px;
+    text-align: center;   
+    vertical-align:top; 
+}
+.polje hr{
+  border-color: #003A62;
+}
+.naslov{
+    width: 100%;
+    color: #38B5ED;
+    background-color: #0C182E;
+    padding: 10px 0;
+    border-radius: 25px 25px 0 0 ;
+    display:inline-block;  
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.naslov-sredina{
+ border-radius: 0 ;
+ margin-top: 20px;
+}
+.dno{
+    width: 100%;
+    color: #38B5ED;
+    background-color: #0C182E;
+   padding: 5px 0;
+    border-radius:  0 0 25px 25px ;
+    display:inline-block;  
+    text-align: center;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.polje-btn{
+  margin:10px;
+}
+
+.alert{  
+   color: #38B5ED;
+}
+
+.alert-danger{  
+   color:#dc3545;
+}
+
+.alert-success{  
+   color:#28a745;;
+}
+
+.naziv{
+  font-size: 22px;
+}
+.broj{
+ font-size: 50px;
+}
+.jedinica{
+ font-size: 14px;
+}
+
+hr{
+  border-color:#0C182E;
+}
+body{
+  background-color: #003A62;
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+  </style>
+</head>
+<body>
+<div id="app"  v-cloak>
+
+
+<div  class="container-fluid"   >
+
+<div  class="naslov"> Kotlarnica 
+</div>
+
+<!--
+<div class="polje alert">
+    <span class="naziv">Prekidači</span>
+    <hr>
+ 	  <div class="polje-btn" v-for="(p ,i) in prekidaci"> 	
+	   <button   type="button" class="btn" :class=" p ? 'btn-success' : 'btn-danger' "   v-on:click="loadData(i)">{{prekidaciNames[i].name }}</button>
+    </div>
+</div>
+
+<hr>
+
+<div  class="polje" v-for="(t,i) in meraci">
+    		<span class="naziv">{{meraciNamesAndMax[i].name }}</span>
+        <hr>         
+        <span class="broj" :class=" t >= meraciNamesAndMax[i].max ? 'alert-danger' : 'alert-success' ">{{t}}</span>
+        <hr>
+        <span class="jedinica">{{meraciNamesAndMax[i].velicina}} [{{meraciNamesAndMax[i].znak}}]</span>
+</div>
+
+-->
+
+
+
+
+<polje-prekidac :prekidac-index="0" v-on:load-data="loadData"></polje-prekidac>
+<polje-prekidac :prekidac-index="1" v-on:load-data="loadData"></polje-prekidac>
+<polje-merac :merac-index="0" ></polje-merac>
+<polje-merac :merac-index="1" ></polje-merac>
+<polje-indikator :indikator-index="0"></polje-indikator>
+
+<div  class="naslov naslov-sredina">Kotao 
+</div>
+
+<polje-merac :merac-index="2" ></polje-merac>
+<polje-merac :merac-index="3" ></polje-merac>
+<polje-merac :merac-index="4" ></polje-merac>
+<polje-merac :merac-index="5" ></polje-merac>
+<polje-merac :merac-index="6" ></polje-merac>
+
+
+
+
+<div  class="dno"> Kojine male kućne čarolije 
+</div>
+
+
+
+</div>
+</div>
+<!-- <script  type="text/babel"> -->
+  <script> 
+Vue.component('polje-prekidac', {
+  props: ['prekidacIndex'],
+  template: `
+  <div class="polje">
+    <span class="naziv">{{this.$parent.prekidaciNames[prekidacIndex].name}}</span>
+    <hr>
+    <div class="polje-btn">   
+     <button   type="button" class="btn" :class="this.$parent.prekidaci[prekidacIndex] ? 'btn-success' : 'btn-danger' "    v-on:click="$emit('load-data',prekidacIndex)"></button>
+    </div>
+  </div>
+  `
+/*
+    template: `
+  <div class="polje">
+    <span class="naziv">{{this.$parent.prekidaciNames[prekidacIndex].name}}-{{prekidacIndex}}-{{this.$parent.prekidaci[prekidacIndex]}}</span>
+    <hr>
+    <div class="polje-btn">   
+     <button   type="button" class="btn" :class="this.$parent.prekidaci[prekidacIndex] ? 'btn-success' : 'btn-danger' "    v-on:click="$emit('load-data',prekidacIndex)"></button>
+    </div>
+</div>
+`
+*/
+
+})
+Vue.component('polje-indikator', {
+  props: ['indikatorIndex'],
+  template: `
+  <div class="polje">
+    <span class="naziv">{{this.$parent.indikatoriNames[indikatorIndex].name}}</span>
+    <hr>
+    <div class="polje-btn">   
+     <div class="circle" :class="this.$parent.indikatori[indikatorIndex] ? 'btn-success' : 'btn-danger' "    v-on:click="$emit('load-data',indikatorIndex)"></div>
+    </div>
+</div>
+`
+})
+Vue.component('polje-merac', {
+  props: ['meracIndex'],
+  template: `
+  <div  class="polje">
+        <span class="naziv">{{this.$parent.meraciNames[meracIndex].name}}</span>
+        <hr>         
+        <span class="broj" :class=" this.$parent.meraci[meracIndex] >= this.$parent.meraciNames[meracIndex].max ? 'alert-danger' : 'alert-success' ">{{this.$parent.meraci[meracIndex]}}</span>
+        <hr>
+        <span class="jedinica">{{this.$parent.meraciNames[meracIndex].velicina}} [{{this.$parent.meraciNames[meracIndex].znak}}]</span>
+  </div>
+`
+})
+
+
+new Vue({
+    el: '#app',
+
+    data: {
+        //items: [2],
+        prekidaci:[],
+        meraci:[],
+        indikatori:[],
+		    prekidaciNames:[
+        {
+        		name:"Sijalica",        		
+    		},
+			  {
+            name:"Ventilator",            
+        },
+        ],
+		    indikatoriNames:[
+        {
+            name:"Pumpa",            
+        },
+        ],
+        meraciNames:[
+        {
+        		name:"Prostorija",
+            velicina:"Temp",
+        		max:9999,
+            znak:String.fromCharCode(parseInt('00B0',16))+'C',
+    		},
+        	{
+        		name:"Prostorija",
+            velicina:"Vlaga",       
+        		max:9999,
+            znak:'%',
+    		},
+			  {
+        		name:"Kotao",
+            velicina:"Temp",            
+        		max:9999,
+            znak:String.fromCharCode(parseInt('00B0',16))+'C',
+    		},
+        {
+            name:"Odlazni vod",
+            velicina:"Temp",
+            max:10,
+            znak:String.fromCharCode(parseInt('00B0',16))+'C',
+        },
+          {
+            name:"Povratni vod",
+            velicina:"Temp",
+            max:9999,
+            znak:String.fromCharCode(parseInt('00B0',16))+'C',
+        },
+        {
+            name:"Dimnjak",
+            velicina:"Temp",
+            max:9999,
+            znak:String.fromCharCode(parseInt('00B0',16))+'C',
+        },        	  		
+         {
+            name:"Sistem",
+            velicina:"Pritisak",
+            max:9999,
+            znak:'Bar',
+        },       
+        ],
+    
+
+
+        interval: null,
+
+    },
+    mounted(){
+        this.loadData();
+        this.interval = setInterval(function () {
+          this.loadData();
+        }.bind(this), 2000); 
+    },
+    methods: {
+        loadData: function (switchId) {
+          var vm = this;
+          //vm.items.push(1);
+          console.log(switchId);
+          	var queryStrig="";
+          	if(switchId !== undefined){
+          		queryStrig="IZLAZ"+switchId+"="+ +!vm.prekidaci[switchId];
+          	}
+          	axios.get('./json/temp.json?'+queryStrig)
+          	//axios.get('http://192.168.1.117?'+queryStrig)
+			//axios.get('http://77.1.1.77/ajax_inputs?'+queryStrig)
+			
+			.then(function (response) {
+		   		console.log(response);	
+				//vm.items = response.data["part"];	
+				vm.prekidaci = response.data[0];	
+				vm.meraci = response.data[1];	
+        vm.indikatori = response.data[2]; 					
+          	})
+        	.catch(function (error) {
+				alert(error);
+	        });
+        }
+    },
+
+     beforeDestroy: function(){
+        clearInterval(this.interval);
+    }
+});
+
+/*
+new Vue({
+el: '#app',
+data: {
+},//data
+ computed:{
+},//computed
+methods:{ 	 
+},//methods
+ watch:{
+},//watch
+beforeCreate: function () {
+ 	console.log('beforeCreate');
+},	//beforeCreate  
+created: function () {
+	console.log('Created');
+},
+mounted : function () {
+	console.log('Mounted');
+},//mounted	//created    
+});//new Vue
+*/
+
+</script>
+
+</body>
+</html>

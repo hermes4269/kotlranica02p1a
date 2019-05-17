@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  
+	<title>Servis</title>
+	
+	<link rel="icon" href="favicon.ico">
+	<!--<script src="./js/vue.js"></script>-->
+  <script src="./js/vue.runtime.min.js"></script>
+	<script src="./js/axios.min.js"></script>	
+  
+
+
+  <style>	
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn {
+    display: inline-block;
+    /*font-weight: 400;*/
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    border-radius: .25rem;
+    transition: all .15s ease-in-out;
+    width:80px;
+}
+
+.container-fluid {
+    max-width: 1000px;
+    margin:auto;
+       text-align: center;
+        border: 1px solid #0C182E;
+    border-radius: 25px;
+    margin-top: 20px;
+
+   
+}
+
+.polje {
+    width: 150px;
+    height:140px;
+    background-color: #0C182E;
+    color: #38B5ED;
+    padding: 15px;    
+    border-radius: 25px;
+    display:inline-block;
+    margin:10px;
+    text-align: center;    
+}
+.polje hr{
+  border-color: #003A62;
+}
+.naslov{
+    width: 100%;
+    color: #38B5ED;
+    background-color: #0C182E;
+    padding: 10px 0;
+    border-radius: 25px 25px 0 0 ;
+    display:inline-block;  
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+.dno{
+    width: 100%;
+    color: #38B5ED;
+    background-color: #0C182E;
+   padding: 5px 0;
+    border-radius:  0 0 25px 25px ;
+    display:inline-block;  
+    text-align: center;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.polje-btn{
+  margin:10px;
+}
+
+.alert{  
+   color: #38B5ED;
+}
+
+.alert-danger{  
+   color:#dc3545;
+}
+
+.alert-success{  
+   color:#28a745;;
+}
+
+.naziv{
+  font-size: 22px;
+}
+.broj{
+ font-size: 50px;
+}
+.jedinica{
+ font-size: 14px;
+}
+
+hr{
+  border-color:#0C182E;
+}
+body{
+  background-color: #003A62;
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+  </style>
+</head>
+<body>
+<div id="app"  v-cloak>
+
+
+<div  class="container-fluid"   >
+
+<div  class="naslov"> Kotlarnica 
+</div>
+
+
+<div class="polje alert">
+    <span class="naziv">Sijalica</span>
+    <hr>
+    <div class="polje-btn" v-for="i in 1">   
+     <button   type="button" class="btn" :class=" prekidaci[i-1] ? 'btn-success' : 'btn-danger' "   v-on:click="loadData(i-1)">{{prekidaciNames[i-1].name }}</button>
+    </div>
+</div>
+
+<div class="polje alert">
+    <span class="naziv">Ventilator</span>
+    <hr>
+    <div class="polje-btn" v-for="i in 2">   
+     <button   type="button" class="btn" :class=" prekidaci[i-1] ? 'btn-success' : 'btn-danger' "   v-on:click="loadData(i-1)">{{prekidaciNames[i-1].name }}</button>
+    </div>
+</div>
+
+
+
+
+<div class="polje alert">
+    <span class="naziv">Prekidači</span>
+    <hr>
+ 	  <div class="polje-btn" v-for="(p ,i) in prekidaci"> 	
+	   <button   type="button" class="btn" :class=" p ? 'btn-success' : 'btn-danger' "   v-on:click="loadData(i)">{{prekidaciNames[i].name }}</button>
+    </div>
+</div>
+
+<hr>
+
+<div  class="polje" v-for="(t,i) in meraci">
+    		<span class="naziv">{{meraciNamesAndMax[i].name }}</span>
+        <hr>         
+        <span class="broj" :class=" t >= meraciNamesAndMax[i].max ? 'alert-danger' : 'alert-success' ">{{t}}</span>
+        <hr>
+        <span class="jedinica">{{meraciNamesAndMax[i].velicina}} [{{meraciNamesAndMax[i].znak}}]</span>
+</div>
+
+
+
+<div  class="dno"> Kojine male kućne čarolije 
+</div>
+
+</div>
+</div>
+<!-- <script  type="text/babel"> -->
+  <script> 
+
+new Vue({
+    el: '#app',
+
+    data: {
+        //items: [2],
+        prekidaci:[],
+        meraci:[],
+		    prekidaciNames:[
+        {
+        		name:"Sijalica",        		
+    		},
+			  {
+            name:"Ventilator",            
+        },
+        ],
+		
+        meraciNamesAndMax:[
+        {
+        		name:"Prostorija",
+            velicina:"Temp",
+        		max:9999,
+            znak:'C',
+    		},
+        	{
+        		name:"Prostorija",
+            velicina:"Vlaga",       
+        		max:9999,
+            znak:'%',
+    		},
+			  {
+        		name:"Kotao",
+            velicina:"Temp",            
+        		max:9999,
+            znak:'C',
+    		},
+        {
+            name:"Odlazni vod",
+            velicina:"Temp",
+            max:10,
+            znak:'C',
+        },
+          {
+            name:"Povratni vod",
+            velicina:"Temp",
+            max:9999,
+            znak:'C',
+        },
+        {
+            name:"Kotao",
+            velicina:"Pritisak",
+            max:9999,
+            znak:'Bar',
+        },
+
+        	  		
+        ],
+        interval: null,
+
+    },
+    mounted(){
+        this.loadData();
+        this.interval = setInterval(function () {
+          this.loadData();
+        }.bind(this), 2000); 
+    },
+    methods: {
+        loadData: function (switchId) {
+          var vm = this;
+          //vm.items.push(1);
+          //console.log(11111);
+          	var queryStrig="";
+          	if(switchId !== undefined){
+          		queryStrig="IZLAZ"+switchId+"="+ +!vm.prekidaci[switchId];
+          	}
+          	axios.get('./json/temp.json?'+queryStrig)
+          	//axios.get('http://192.168.1.117?'+queryStrig)
+			//axios.get('http://77.1.1.77/ajax_inputs?'+queryStrig)
+			
+			.then(function (response) {
+		   		console.log(response);	
+				//vm.items = response.data["part"];	
+				vm.prekidaci = response.data[0];	
+				vm.meraci = response.data[1];						
+          	})
+        	.catch(function (error) {
+				alert(error);
+	        });
+        }
+    },
+
+     beforeDestroy: function(){
+        clearInterval(this.interval);
+    }
+});
+
+/*
+new Vue({
+el: '#app',
+data: {
+},//data
+ computed:{
+},//computed
+methods:{ 	 
+},//methods
+ watch:{
+},//watch
+beforeCreate: function () {
+ 	console.log('beforeCreate');
+},	//beforeCreate  
+created: function () {
+	console.log('Created');
+},
+mounted : function () {
+	console.log('Mounted');
+},//mounted	//created    
+});//new Vue
+*/
+
+</script>
+
+</body>
+</html>
