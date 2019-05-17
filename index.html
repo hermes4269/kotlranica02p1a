@@ -356,9 +356,9 @@ new Vue({
           	if(switchId !== undefined){
           		queryStrig="IZLAZ"+switchId+"="+ +!vm.prekidaci[switchId];
           	}
-          	axios.get('./json/temp.json?'+queryStrig)
+          	//axios.get('./json/temp.json?'+queryStrig)
             //axios.get('http://www.bet-sms.net/www-test/kotlarnica/testjson/temp.json?'+queryStrig)
-          	//axios.get('http://192.168.1.117?'+queryStrig)
+          	axios.get('http://192.168.1.117?'+queryStrig)
 			//axios.get('http://77.1.1.77/ajax_inputs?'+queryStrig)
 			
 			.then(function (response) {
